@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Basketball Games of the Week</title>
+  </head>
+  <body>
+    <h1>Basketball Games of the Week</h1>
+    <div id="games"></div>
+    
+    <script>
+      // ESPN API endpoint for NBA games
+      const endpoint = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard';
+      
+      // Fetch the games from the API
+      fetch(endpoint)
+        .then(response => response.json())
+        .then(data => {
+          const games = data.events;
+          let gamesHTML = '';
+          
+          // Loop through the games and create HTML for each game
+          games.forEach(game => {
+            const date = new Date(game.date);
+            const dateString = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+            const timeString = `${date.getHours() % 12}:${date.getMinutes().toString().padStart(2, '0')} ${date.getHours() < 12 ? 'AM' : 'PM'}`;
+            const awayTeam = game.competitions[0].competitors[0].team.abbreviation;
+            const homeTeam = game.competitions[0].competitors[1].team.abbreviation;
+            
+            gamesHTML += `
+              <div>
+                <h2>${awayTeam} @ ${homeTeam}</h2>
+                <p>${dateString} ${timeString}</p>
+              </div>
+            `;
+          });
+          
+          // Set the HTML for the games container
+          document.getElementById('games').innerHTML = gamesHTML;
+        })
+        .catch(error => console.error(error));
+    </script>
+  </body>
+</html>

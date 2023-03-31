@@ -1,0 +1,24 @@
+
+// Get live data from ESPN API
+fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard')
+  .then(response => response.json())
+  .then(data => {
+    // process data and update website accordingly
+  })
+  .catch(error => {
+    console.error('Error fetching data from ESPN API:', error);
+  });
+
+// Get odds data from Odds API
+fetch('https://api.the-odds-api.com/v4/sports/basketball_nba/odds', {
+  headers: {
+    'ApiKey': 'your-api-key-here'
+  }
+})
+  .then(response => response.json())
+  .then(data => {
+    // process data and update website accordingly
+  })
+  .catch(error => {
+    console.error('Error fetching odds data from Odds API:', error);
+  });

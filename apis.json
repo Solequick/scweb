@@ -1,0 +1,37 @@
+// define the API endpoint for ESPN live data and Odds data
+const espnAPI = "https://api.espn.com/v1/sports/basketball/nba/events?apikey=yourapikey";
+const oddsAPI = "https://api.theoddsapi.com/v3/odds/?sport=basketball_nba&region=us&mkt=h2h&apiKey=yourapikey";
+
+// fetch the data from ESPN live data and Odds data APIs
+const fetchData = async () => {
+  const espnData = await fetch(espnAPI);
+  const oddsData = await fetch(oddsAPI);
+
+  const espnJSON = await espnData.json();
+  const oddsJSON = await oddsData.json();
+
+  // process the data and update the website accordingly
+  updateWebsite(espnJSON, oddsJSON);
+};
+
+// update the website based on the fetched data
+const updateWebsite = (espnJSON, oddsJSON) => {
+  // process and display ESPN live data
+  const espnGames = espnJSON.events;
+  espnGames.forEach((game) => {
+    const gameTitle = game.shortName;
+    const gameTime = game.date;
+    // display the game title and time on the website
+  });
+
+  // process and display Odds data
+  const oddsData = oddsJSON[0].sites;
+  oddsData.forEach((site) => {
+    const siteName = site.site_nice;
+    const siteOdds = site.odds.h2h;
+    // display the site name and odds on the website
+  });
+};
+
+// call the fetchData function to start fetching data from APIs and updating the website
+fetchData();
